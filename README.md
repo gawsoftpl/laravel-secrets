@@ -42,7 +42,7 @@ return [
           //  'mail.mailers.smtp.password',
           //  'database.connections.mysql.password'
         ],
-        // Do not redacted below values
+        // Do not redact below values
         'blacklist' => [
             'app.name',
             'logging.level',
@@ -72,7 +72,7 @@ This package will read this secret with function laravel_secrets.
 laravel_secrets('<PATH-TO-FILE>', '<DEFAULT-VALUE>');
 ```
 ## 2. Read encrypted secrets from file
-You can also encrypt secrets with Laravel App Key and auto encrypt after loading encrypted string to Laravel config.
+You can also encrypt secrets with Laravel App Key and auto encrypt after loaded encrypted string to Laravel config.
 ```sh
 # Encrypt password by artisan command
 echo "abc" > /tmp/password
@@ -99,6 +99,7 @@ return [
           //  'mail.mailers.smtp.password',
           //       'database.connections.mysql.password'
         ],
+        // Do not redact values from blacklist. Those values will show in logs
         'blacklist' => [
             'app.name',
             'logging.level',
