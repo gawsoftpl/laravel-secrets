@@ -5,7 +5,8 @@ namespace Gawsoft\LaravelSecrets\Tests\Unit;
 use Gawsoft\LaravelSecrets\Tests\TestCase;
 use Illuminate\Support\Facades\Config;
 
-class HelpersTest extends TestCase {
+class HelpersTest extends TestCase
+{
 
     function setUp(): void
     {

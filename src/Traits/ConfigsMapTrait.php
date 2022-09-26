@@ -5,30 +5,53 @@ namespace Gawsoft\LaravelSecrets\Traits;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
 
 trait ConfigsMapTrait {
 
     static function prepareConfigMapsToRedacted(): Collection {
-        $configMaps = self::generateTreeConfigMaps(Config::all());
-        self::prepareWhitelistToRedacted($configMaps, collect(Config::get('secrets.logs.whitelist')));
-        self::prepareBlacklistToRedacted($configMaps, collect(Config::get('secrets.logs.blacklist')));
+        $whitelist = Config::get('secrets.logs.whitelist');
+        $configs = Config::all();
+
+        if (count($whitelist) == 0)
+            $configMaps = self::generateTreeConfigMaps($configs);
+        else
+            $configMaps = self::prepareWhitelistToRedacted($configs, $whitelist);
+
+        self::prepareBlacklistToRedacted($configMaps, Config::get('secrets.logs.blacklist'));
         return $configMaps;
     }
 
-    static function generateTreeConfigMaps($configData): Collection
+    static function generateTreeConfigMaps(&$configData): Collection
     {
         return collect(Arr::dot($configData));
     }
 
-    static function prepareWhitelistToRedacted(Collection &$data, Collection $whitelist): void
+    static function prepareWhitelistToRedacted(array &$data, array &$whitelist): Collection
     {
-        if ($whitelist->count() == 0) return;
-        $data = $data->filter(fn($item, $key) => $whitelist->contains($key));
+        $data = Arr::dot($data);
+        $selected_configs = [];
+
+        foreach($data as $key=>$value)
+        {
+            foreach($whitelist as $whitelist_value){
+                if (Str::startsWith($key, $whitelist_value))
+                    $selected_configs[$key] = $value;
+            }
+        }
+
+        return collect($selected_configs);
     }
 
-    static function prepareBlacklistToRedacted(Collection &$data, Collection $blacklist): void
+
+    static function prepareBlacklistToRedacted(Collection &$data, array $blacklist): void
     {
-        if ($blacklist->count() == 0) return;
-        $data = $data->filter(fn($item, $key) => !$blacklist->contains($key));
+        if (count($blacklist) == 0) return;
+        $data = $data->filter(function($item, $key) use($blacklist) {
+            foreach($blacklist as $blacklist_item){
+                if (Str::startsWith($key, $blacklist_item)) return false;
+            }
+            return true;
+        });
     }
 }
