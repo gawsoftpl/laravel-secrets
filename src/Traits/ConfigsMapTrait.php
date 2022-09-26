@@ -2,26 +2,22 @@
 
 namespace Gawsoft\LaravelSecrets\Traits;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 
 trait ConfigsMapTrait {
 
     static function prepareConfigMapsToRedacted(): Collection {
-        $data = [];
-        self::generateTreeConfigMaps(Config::all(), $data);
-        $configMaps = collect($data);
+        $configMaps = self::generateTreeConfigMaps(Config::all());
         self::prepareWhitelistToRedacted($configMaps, collect(Config::get('secrets.logs.whitelist')));
         self::prepareBlacklistToRedacted($configMaps, collect(Config::get('secrets.logs.blacklist')));
         return $configMaps;
     }
 
-    static function generateTreeConfigMaps($configData, &$map = [], $parent_key = "")
+    static function generateTreeConfigMaps($configData): Collection
     {
-        collect($configData)->each(function($value, $key) use(&$map, &$parent_key){
-            if (is_array($value)) self::generateTreeConfigMaps($value, $map, $parent_key.$key.".");
-            else $map["{$parent_key}{$key}"] = $value;
-        });
+        return collect(Arr::dot($configData));
     }
 
     static function prepareWhitelistToRedacted(Collection &$data, Collection $whitelist): void

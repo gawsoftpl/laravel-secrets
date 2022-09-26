@@ -4,6 +4,7 @@ namespace Gawsoft\LaravelSecrets\Actions;
 
 use Gawsoft\LaravelSecrets\Traits\ConfigsMapTrait;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 
 class LogsCleaner {
 
@@ -12,9 +13,10 @@ class LogsCleaner {
     private ?Collection $configsMap = null;
 
     function removeSecretsFromString(string &$log): void {
+        $redaction = Config::get('secrets.strategy.redaction');
         $this->configsMap = self::prepareConfigMapsToRedacted();
-        $this->configsMap->each(function($config_value) use(&$log) {
-            $log = str_replace( $config_value, "[redacted]", $log);
+        $this->configsMap->each(function($config_value) use(&$log, $redaction) {
+            $log = str_replace( $config_value, $redaction, $log);
         });
         $this->clearConfigsMap();
     }

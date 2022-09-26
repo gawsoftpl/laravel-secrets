@@ -2,13 +2,13 @@
 
 namespace Gawsoft\LaravelSecrets\Handlers;
 
-use Gawsoft\LaravelSecrets\Actions\Logs;
+use Gawsoft\LaravelSecrets\Actions\LogsProcess;
 use Illuminate\Log\Logger;
 
 class LogsSecretsRemoverHandler {
 
     function __construct(
-        private Logs $logsAction
+        private LogsProcess $logsAction
     ){}
 
     function __invoke(Logger $logger){

@@ -7,14 +7,20 @@
     },
     "autoload": {
         "psr-4": {
-            "Gawsoft\\LaravelSecrets\\": "src/",
+            "Gawsoft\\LaravelSecrets\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Gawsoft\\LaravelSecrets\\Tests\\": "tests/"
         }
     },
     "authors": [
         {
-            "name": "Pitos",
-            "email": "biuro@gawsoft.pl"
+            "name": "Pitos"
         }
     ],
     "require-dev": {
@@ -25,5 +31,17 @@
     "require": {
         "php": "^8.0",
         "illuminate/contracts": "^8.0|^9.0"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gawsoft\\LaravelSecrets\\LaravelSecretsServiceProvider"
+            ]
+        }
     }
 }

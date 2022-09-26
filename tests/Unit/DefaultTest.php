@@ -1,6 +1,8 @@
 <?php
 
-namespace Gawsoft\LaravelSecrets\Tests;
+namespace Gawsoft\LaravelSecrets\Tests\Unit;
+
+use Gawsoft\LaravelSecrets\Tests\TestCase;
 
 class DefaultTest extends TestCase {
 

@@ -2,7 +2,7 @@
 
 namespace Gawsoft\LaravelSecrets\Actions;
 
-class Logs {
+class LogsProcess {
 
     function __construct(
         private LogsCleaner $logsCleaner
