@@ -3,27 +3,12 @@
 namespace Gawsoft\LaravelSecrets\Secrets;
 
 use Gawsoft\LaravelSecrets\Interfaces\SecretProviderInterface;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Config\Repository;
 
 class Secrets
 {
     private SecretProviderInterface $strategy;
 
-    function autoloadStrategy($cls = null)
-    {
-        $strategyConfig = $this->getStrategyConfig();
-
-        if ($cls) {
-            $handler = app($cls);
-        } else {
-            $handler = app($strategyConfig['handler']);
-        }
-
-        $handler->setConfig($strategyConfig['config']);
-        $this->setStrategy($handler);
-    }
 
     function setStrategy(SecretProviderInterface $strategy)
     {
@@ -35,16 +20,31 @@ class Secrets
         return $this->strategy->getSecret($name);
     }
 
+    function autoloadStrategy($cls = null)
+    {
+        $strategyConfig = $this->getStrategyConfig();
+        if ($cls) {
+            $handler = app($cls);
+        } else {
+            $handler = app($strategyConfig['handler']);
+        }
+
+        $handler->setConfig($strategyConfig['config']);
+        $this->setStrategy($handler);
+    }
+
+
     protected function getStrategyConfig()
     {
-        return $this->getConfig()->get('secrets.strategy');
+        return $this->getConfig()['strategy'];
     }
 
     protected function getConfig()
     {
-        $config = config()->get('secrets');
+        $config = config()?->get('secrets');
         if ($config === null)
             return $this->parseConfig(config_path('secrets.php'));
+
         return $config;
     }
 
@@ -56,7 +56,7 @@ Please install vendor config. Run below command:
 php artisan vendor:publish --provider=\"Gawsoft\LaravelSecrets\LaravelSecretsServiceProvider\"
             ");
 
-        return new Repository(['secrets' => require $path]);
+        return require $path;
     }
 
 }
