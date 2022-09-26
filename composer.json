@@ -1,6 +1,6 @@
 {
     "name": "gawsoft/laravel-secrets",
-    "version": "0.0.1",
+    "version": "dev-main",
     "type": "library",
     "license": "MIT",
     "scripts": {
