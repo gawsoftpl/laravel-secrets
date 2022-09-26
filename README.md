@@ -72,9 +72,9 @@ This package will read this secret with function laravel_secrets.
 laravel_secrets('<PATH-TO-FILE>', '<DEFAULT-VALUE>');
 ```
 ## 2. Read encrypted secrets from file
-You can also encrypt secrets with Laravel App key and encrypt during run
+You can also encrypt secrets with Laravel App Key and auto encrypt after loading encrypted string to Laravel config.
 ```sh
-# Encrypt password
+# Encrypt password by artisan command
 echo "abc" > /tmp/password
 cat /tmp/password | php artisan laravel-secret:encrypt
 
@@ -83,7 +83,7 @@ php artisan laravel-secret:decrypt encrypted:eyJpdiI6InhQbEhUREJQa21mcW85M0tYSEh
 ```
 
 ## 3. Remove secrets from Logs
-During process logs in Laravel my package will remove sensitive data from log message. 
+During logs process in Laravel my package will remove sensitive data from log message. 
 **Default will remove all values saved in all configs**.
 You can change this options in config/secrets.php.
 
@@ -105,10 +105,12 @@ return [
         ],
     ]
 ];
-
-
 ```
 # Tests
 ```sh
 composer test
 ```
+
+# License
+MIT
+

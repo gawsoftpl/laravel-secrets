@@ -13,7 +13,6 @@ class HelpersTest extends TestCase {
         Config::set('secrets.strategy.config.path', __DIR__.'/../secrets/');
     }
 
-
     function test_helpers_laravel_secrets_full_path(){
         $this->assertEquals('test-db-password', laravel_secrets(__DIR__.'/../secrets/db/password'));
     }
@@ -28,6 +27,10 @@ class HelpersTest extends TestCase {
 
     function test_helpers_laravel_secrets_file_not_exists(){
         $this->assertEquals(null, laravel_secrets('db/passworddsff34'));
+    }
+
+    function test_helpers_laravel_secrets_file_not_exists_usage_default_value(){
+        $this->assertEquals('abc', laravel_secrets('db/passworddsff34','abc'));
     }
 }
 
