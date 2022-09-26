@@ -31,7 +31,7 @@ class ContainerStrategy extends SecretsProviderAbstract implements SecretProvide
 
     private function readFromFile(string $name): string
     {
-        return file_get_contents($this->buildPath($name));
+        return trim(file_get_contents($this->buildPath($name)));
     }
 
     function decryptString($encrypted_secret): string

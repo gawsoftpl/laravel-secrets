@@ -15,8 +15,9 @@ class LogsCleaner {
     function removeSecretsFromString(string &$log): void {
         $redaction = Config::get('secrets.strategy.redaction');
         $this->configsMap = self::prepareConfigMapsToRedacted();
+
         $this->configsMap->each(function($config_value) use(&$log, $redaction) {
-            $log = str_replace( $config_value, $redaction, $log);
+            if (is_string($config_value)) $log = str_replace( $config_value, $redaction, $log);
         });
         $this->clearConfigsMap();
     }

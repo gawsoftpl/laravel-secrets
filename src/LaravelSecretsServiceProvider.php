@@ -15,10 +15,7 @@ class LaravelSecretsServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom(__DIR__ . '/Config/secrets.php','secrets');
     }
 
-    public function boot(
-
-    ){
-
+    public function boot(){
         $default_logging = Config::get('logging.default');
         $this->app->make('config')->set('logging.channels.'.$default_logging.'.tap', [
             LogsSecretsRemoverHandler::class
