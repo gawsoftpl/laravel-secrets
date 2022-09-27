@@ -14,7 +14,7 @@ class EncryptSecret extends Command
     {
         $secret = $this->argument('secret');
         if (!$secret && $this->option('stdin')) {
-            $secret = file_get_contents("php://stdin");
+            $secret = trim(file_get_contents("php://stdin"));
         }
 
         if (!$secret) {

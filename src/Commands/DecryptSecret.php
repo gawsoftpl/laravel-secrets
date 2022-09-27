@@ -14,7 +14,7 @@ class DecryptSecret extends Command
     {
         $encrypted = $this->argument('encrypted');
         if (!$encrypted && $this->option('stdin')) {
-            $encrypted = file_get_contents("php://stdin");
+            $encrypted = trim(file_get_contents("php://stdin"));
         }
 
         if (!$encrypted) {

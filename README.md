@@ -80,10 +80,11 @@ You can also encrypt secrets with Laravel App Key and auto encrypt after loaded 
 ```sh
 # Encrypt password by artisan command
 echo "abc" > /tmp/password
-cat /tmp/password | php artisan laravel-secrets:encrypt
+cat /tmp/password | php artisan laravel-secrets:encrypt --stdin
 
 # Decrypt password
-php artisan laravel-secrets:decrypt encrypted:eyJpdiI6InhQbEhUREJQa21mcW85M0tYSEhhOUE9PSIsInZhbHVlIjoiY2pXZ0lqUlY4YVoydDdyZzVHak9XUT09IiwibWFjIjoiMWFlZjA4MGIyN2Q2YmEwMzc4ZGNjNTYzYTgyOTNiMzFiOWM0OTVmZWFkNGYzZTFiNDAwM2Y1NzgyYWJlMDEwMCIsInRhZyI6IiJ9
+echo "encrypted:eyJpdiI6InhQbEhUREJQa21mcW85M0tYSEhhOUE9PSIsInZhbHVlIjoiY2pXZ0lqUlY4YVoydDdyZzVHak9XUT09IiwibWFjIjoiMWFlZjA4MGIyN2Q2YmEwMzc4ZGNjNTYzYTgyOTNiMzFiOWM0OTVmZWFkNGYzZTFiNDAwM2Y1NzgyYWJlMDEwMCIsInRhZyI6IiJ9" > /tmp/encrypted
+cat /tmp/encrypted | php artisan laravel-secrets:decrypt --stdin
 ```
 
 ## 3. Remove secrets from Logs
