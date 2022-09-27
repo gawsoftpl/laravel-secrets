@@ -1,6 +1,7 @@
 {
     "name": "gawsoft/laravel-secrets",
     "type": "library",
+    "description": "Package for Laravel projects for read secrets from file. Second feature is to prevent to show secrets in logs.",
     "license": "MIT",
     "scripts": {
         "test": "vendor/bin/phpunit tests"
