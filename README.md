@@ -89,7 +89,7 @@ php artisan laravel-secret:decrypt encrypted:eyJpdiI6InhQbEhUREJQa21mcW85M0tYSEh
 ## 3. Remove secrets from Logs
 During logs process in Laravel my package will remove sensitive data from log message. 
 **Default will remove all values saved in all configs**.
-You can change this options in config/secrets.php.
+You can change this options in config/secrets.php via set whitelist and blacklist.
 
 ```php
 #config/secrets.php
@@ -119,6 +119,38 @@ composer test
 # RoadMap
 - Add Strategy for AWS Secret Manager
 - Add Strategy for Hashicorp Vault
+
+# How to write new strategy
+1. Create new file LaravelSecrets\Secrets\Providers\MySecretProvider.php
+2. Write your driver
+```php
+<?php
+
+namespace MyCompany\MyPackage\LaravelSecrets\Secrets\Providers\MySecretProvider;
+
+use Gawsoft\LaravelSecrets\Abstracts\SecretsProviderAbstract;
+use Gawsoft\LaravelSecrets\Interfaces\SecretProviderInterface;
+
+
+class ContainerStrategy extends SecretsProviderAbstract implements SecretProviderInterface
+{
+    function getSecret(string $name): string | null
+    {
+        // Get secret from your source
+    }
+
+}
+```
+3. Register as default strategy in config.php
+```php
+return [
+    'strategy' => [
+        ...
+        'handler' => \MyCompany\MyPackage\LaravelSecrets\Secrets\Providers\MySecretProvider::class,
+        ...
+    ]
+```
+
 # License
 MIT
 
