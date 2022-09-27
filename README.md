@@ -141,7 +141,7 @@ class ContainerStrategy extends SecretsProviderAbstract implements SecretProvide
 
 }
 ```
-3. Register as default strategy in config.php
+3. Register as default strategy in configs/secrets.php
 ```php
 return [
     'strategy' => [
