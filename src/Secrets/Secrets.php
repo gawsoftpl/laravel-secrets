@@ -3,6 +3,7 @@
 namespace Gawsoft\LaravelSecrets\Secrets;
 
 use Gawsoft\LaravelSecrets\Interfaces\SecretProviderInterface;
+use Illuminate\Support\Facades\Log;
 
 class Secrets
 {
@@ -56,7 +57,10 @@ php artisan vendor:publish --provider=\"Gawsoft\LaravelSecrets\LaravelSecretsSer
 
     protected function parseConfig(string $path): array | null
     {
-        if (!file_exists($path)) return null;
+        if (!file_exists($path)) {
+            Log::debug("{$path} not exists");
+            return null;
+        }
         return require $path;
     }
 
