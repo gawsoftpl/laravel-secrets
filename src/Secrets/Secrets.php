@@ -3,12 +3,10 @@
 namespace Gawsoft\LaravelSecrets\Secrets;
 
 use Gawsoft\LaravelSecrets\Interfaces\SecretProviderInterface;
-use Illuminate\Config\Repository;
 
 class Secrets
 {
     private SecretProviderInterface $strategy;
-
 
     function setStrategy(SecretProviderInterface $strategy)
     {
@@ -32,7 +30,6 @@ class Secrets
         $handler->setConfig($strategyConfig['config']);
         $this->setStrategy($handler);
     }
-
 
     protected function getStrategyConfig()
     {

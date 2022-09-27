@@ -43,7 +43,6 @@ trait ConfigsMapTrait {
         return collect($selected_configs);
     }
 
-
     static function prepareBlacklistToRedacted(Collection &$data, array $blacklist): void
     {
         if (count($blacklist) == 0) return;

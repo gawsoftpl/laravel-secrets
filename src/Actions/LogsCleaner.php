@@ -22,7 +22,7 @@ class LogsCleaner {
         $this->clearConfigsMap();
     }
 
-    function clearConfigsMap()
+    function clearConfigsMap(): void
     {
         $this->clearMemory();
     }
@@ -35,7 +35,7 @@ class LogsCleaner {
         return json_decode($data,1);
     }
 
-    protected function clearMemory()
+    protected function clearMemory(): void
     {
         $this->configsMap = null;
         unset($this->configsMap);

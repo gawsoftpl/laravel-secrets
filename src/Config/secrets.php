@@ -11,7 +11,7 @@ return [
         'config' => [
             # Default path to your secrets
             # - when you run laravel_secrets('db/password') -> Will check path /run/secrets/db/password
-            # - when you run laravel_secrets('/secrets/db/password') -> Ignore default path and check /secrets/db/password and wi
+            # - when you run laravel_secrets('/secrets/db/password') -> Ignore default path and check /secrets/db/password
             'path' => '/run/secrets/',
             # If you encrypt secret all encrypted string will start with this string.
             # This string cannot be empty!
