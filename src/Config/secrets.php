@@ -22,10 +22,11 @@ return [
     'logs' => [
         // When set empty whitelist array, all config values will be redacted.
         // When set min one value only this value will be redacted.
+        // You can also group config with dots
         'whitelist' => [
           //  'app.key',
           //  'mail.mailers.smtp.password',
-          //  'database.connections.mysql.password'
+          //  'database.connections' // Will prevent to show in logs all database.connections values from config
         ],
         // Do not redact values from blacklist. Those values will show in logs
         'blacklist' => [

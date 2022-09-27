@@ -7,12 +7,22 @@ use Gawsoft\LaravelSecrets\Actions\EncryptSecret as EncryptSecretAction;
 
 class EncryptSecret extends Command
 {
-    protected $signature = 'laravel-secret:encrypt {secret}';
+    protected $signature = 'laravel-secrets:encrypt {secret?} {--stdin}';
     protected $description = 'Encrypt string with Laravel crypto method';
 
     function handle()
     {
-        $this->info(EncryptSecretAction::handle($this->argument('secret')));
+        $secret = $this->argument('secret');
+        if (!$secret && $this->option('stdin')) {
+            $secret = file_get_contents("php://stdin");
+        }
+
+        if (!$secret) {
+            $this->error('No set secret to encrypt');
+            return 1;
+        }
+
+        $this->info(EncryptSecretAction::handle($secret));
         return 0;
     }
 }
