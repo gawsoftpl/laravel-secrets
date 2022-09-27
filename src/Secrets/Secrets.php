@@ -43,19 +43,23 @@ class Secrets
     {
         $config = config()?->get('secrets');
         if ($config === null)
-            return $this->parseConfig(config_path('secrets.php'));
+            $config = $this->parseConfig(config_path('secrets.php'));
 
-        return $config;
-    }
+        if ($config === null)
+            $config = $this->parseConfig(realpath(__DIR__.'/../Config/secrets.php'));
 
-    protected function parseConfig(string $path)
-    {
-        if (!file_exists($path))
+        if ($config === null)
             throw new \Exception("Cant find config/secrets.php.
 Please install vendor config. Run below command:
 php artisan vendor:publish --provider=\"Gawsoft\LaravelSecrets\LaravelSecretsServiceProvider\"
             ");
 
+        return $config;
+    }
+
+    protected function parseConfig(string $path): array | null
+    {
+        if (!file_exists($path)) return null;
         return require $path;
     }
 

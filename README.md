@@ -3,6 +3,10 @@ A Laravel package for:
 - Load kubernetes/docker secrets from file
 - Remove secrets from Logs. Prevent from secrets being leaked in logs.
 
+### Minimum requirements
+- PHP 8.0
+- Laravel 8.0
+
 # Installation
 ```sh
 composer require gawsoft/laravel-secrets
@@ -112,6 +116,9 @@ return [
 composer test
 ```
 
+# RoadMap
+- Add Strategy for AWS Secret Manager
+- Add Strategy for Hashicorp Vault
 # License
 MIT
 

@@ -7,6 +7,11 @@ use Gawsoft\LaravelSecrets\Actions\DecryptSecret;
 use Gawsoft\LaravelSecrets\Interfaces\SecretProviderInterface;
 use Illuminate\Support\Str;
 
+/**
+ * Strategy to read secrets from file for K8s and docker
+ * - Read plain text secret
+ * - If secret is encrypted (has set prefix in config.php)
+ */
 class ContainerStrategy extends SecretsProviderAbstract implements SecretProviderInterface
 {
     function getSecret(string $name): string | null
