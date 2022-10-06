@@ -1,9 +1,37 @@
 # Laravel Secrets
-A Laravel package for:
-- Load kubernetes/docker secrets from file
-- Remove secrets from Logs. Prevent from secrets being leaked in logs.
+A Laravel package with 2 main functions:
+1. Remove secrets from Logs. Prevent from secrets being leaked in logs.
+2. Load kubernetes/docker secrets from file
 
-### Minimum requirements
+
+# Demo & Usage
+
+### 1. Remove secrets from Logs
+Without laravel-secrets. secretpassword leaked in log
+```
+[2022-07-20 16:11:34] local.NOTICE: This is a notice level message.
+[2022-07-20 16:11:34] local.ALERT: Can't connect with https://login:secretpassword@example.com
+```
+With laravel-secrets, secretpassword is redacted before send log
+```
+[2022-07-20 16:11:34] local.NOTICE: This is a notice level message.
+[2022-07-20 16:11:34] local.ALERT: Can't connect with https://login:[redacted]@example.com
+```
+
+### 2. Read secret from file.
+```php
+return [
+    'connections' => [
+        'mysql' => [
+            'driver' => 'mysql',
+            'port' => env('DB_PORT', '3306'),
+            'username' => laravel_secrets('db/username', env('DB_USERNAME')),
+            'password' => laravel_secrets('db/password', env('DB_PASSWORD')),
+        ],
+]
+```
+
+# Minimum requirements
 - PHP 8.0
 - Laravel 8.0
 
@@ -55,18 +83,6 @@ return [
 ];
 ```
 
-# Usage
-```php
-return [
-    'connections' => [
-        'mysql' => [
-            'driver' => 'mysql',
-            'port' => env('DB_PORT', '3306'),
-            'username' => laravel_secrets('db/username', env('DB_USERNAME')),
-            'password' => laravel_secrets('db/password', env('DB_PASSWORD')),
-        ],
-]
-```
 
 ## 1. Read secrets from file
 When you install laravel in docker or kubernetes for security reason your devops team inject secrets to file in the container. 
@@ -101,8 +117,8 @@ return [
         // When set min one value only this value will be redacted.
         'whitelist' => [
           //  'app.key',
-          //  'mail.mailers.smtp.password',
-          //       'database.connections.mysql.password'
+          //  'mail.mailers', # Alle mailers secrets will be redacted
+          //  'database.connections.mysql.password'
         ],
         // Do not redact values from blacklist. Those values will show in logs
         'blacklist' => [
