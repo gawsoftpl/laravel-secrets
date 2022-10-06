@@ -25,7 +25,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'port' => env('DB_PORT', '3306'),
-            'username' => laravel_secrets('db/username', env('DB_USERNAME')),
+            'username' => laravel_secrets('/run/secrets/db/username', env('DB_USERNAME')),
             'password' => laravel_secrets('db/password', env('DB_PASSWORD')),
         ],
 ]
