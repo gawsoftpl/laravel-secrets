@@ -74,7 +74,6 @@ return [
           //  'mail.mailers.smtp.password',
           //  'database.connections.mysql.password'
         ],
-        // Do not redact below values
         'blacklist' => [
             'app.name',
             'logging.level',
