@@ -3,6 +3,7 @@
 namespace Gawsoft\LaravelSecrets\Tests;
 
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\LogRecord;
 
 class TestLoggerHandler extends AbstractProcessingHandler
 {
@@ -12,7 +13,7 @@ class TestLoggerHandler extends AbstractProcessingHandler
         return $this->logs;
     }
 
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
         $this->logs[] = $record;
     }
