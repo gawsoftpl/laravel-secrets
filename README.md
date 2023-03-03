@@ -46,7 +46,12 @@ php artisan vendor:publish --provider="Gawsoft\LaravelSecrets\LaravelSecretsServ
 ```
 
 # Configuration
+
+Example config/secrets.php:
+
 ```php
+<?php
+
 return [
     'strategy' => [
         # String with which secrets value will be replaced
