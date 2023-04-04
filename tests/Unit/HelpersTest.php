@@ -22,6 +22,10 @@ class HelpersTest extends TestCase
         $this->assertEquals('test-db-password', laravel_secrets('db/password'));
     }
 
+    function test_helpers_laravel_secrets_return_null_on_null(){
+        $this->assertEquals(null, laravel_secrets(null));
+    }
+
     function test_ahelpers_laravel_secrets_encrypted(){
         $this->assertEquals('abc', laravel_secrets('db/encrypted-password'));
     }
