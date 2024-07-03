@@ -30,7 +30,7 @@
         "mockery/mockery": "^1.6"
     },
     "require": {
-        "php": "^8.0",
+        "php": "^8.2",
         "illuminate/contracts": "^10|^11",
         "illuminate/console": "^10|^11",
         "illuminate/log": "^10|^11"
